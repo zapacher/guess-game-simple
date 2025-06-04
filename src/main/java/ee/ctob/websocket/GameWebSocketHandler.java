@@ -36,7 +36,7 @@ public class GameWebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         try {
             BetMessage betMessage = objectMapper.readValue(message.getPayload(), BetMessage.class);
             if (betMessage.getNumber() < 1 || betMessage.getNumber() > 10 || betMessage.getAmount() <= 0) {
