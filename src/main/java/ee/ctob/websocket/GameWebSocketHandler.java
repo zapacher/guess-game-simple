@@ -51,7 +51,7 @@ public class GameWebSocketHandler extends TextWebSocketHandler {
     }
 
     private void startGameLoop() {
-        scheduler.scheduleAtFixedRate(this::playRound, 0, 15, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::playRound, 0, 10, TimeUnit.SECONDS);
     }
 
     private void playRound() {
@@ -72,7 +72,9 @@ public class GameWebSocketHandler extends TextWebSocketHandler {
             }
 
             broadcastAll("Winning number: " + winningNumber);
-            broadcastAll("Winners: " + objectMapper.writeValueAsString(winners));
+            if(!winners.isEmpty()) {
+                broadcastAll("Winners: " + objectMapper.writeValueAsString(winners));
+            }
             currentBets.clear();
         } catch (Exception e) {
             e.printStackTrace();
